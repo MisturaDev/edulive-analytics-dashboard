@@ -20,6 +20,7 @@ type TrendChartProps = {
   values: number[]
   lineColor: string
   fillColor: string
+  showCard?: boolean
 }
 
 const chartOptions: ChartOptions<'line'> = {
@@ -58,6 +59,7 @@ export function TrendChart({
   values,
   lineColor,
   fillColor,
+  showCard = true,
 }: TrendChartProps) {
   const data = {
     labels,
@@ -74,6 +76,16 @@ export function TrendChart({
     ],
   }
 
+  const ChartBody = (
+    <div className="h-40">
+      <Line options={chartOptions} data={data} />
+    </div>
+  )
+
+  if (!showCard) {
+    return ChartBody
+  }
+
   return (
     <div className="panel p-5">
       <div className="flex items-center justify-between">
@@ -84,9 +96,7 @@ export function TrendChart({
           </p>
         )}
       </div>
-      <div className="mt-6 h-40">
-        <Line options={chartOptions} data={data} />
-      </div>
+      <div className="mt-6">{ChartBody}</div>
     </div>
   )
 }
