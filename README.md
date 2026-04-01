@@ -84,7 +84,7 @@ To develop an interactive dashboard that tracks classroom performance and provid
     context/         # Global state management
     services/        # API calls
     data/            # Mock data
-    ```bash
+    ```
     
    ---
 
