@@ -1,73 +1,119 @@
-# React + TypeScript + Vite
+# EduLive Analytics Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A data-driven classroom analytics dashboard that visualizes student attendance, participation and engagement trends. Built with React, this application helps educators make informed decisions using real-time insights and AI-powered recommendations.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Project Goal
 
-## React Compiler
+To develop an interactive dashboard that tracks classroom performance and provides actionable insights into student engagement.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## Target Audience
+Teachers
+School administrators
+Educational institutions
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Features
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+**Analytics Dashboard**
+- Attendance and engagement charts
+- Participation trends visualization
+- Color-coded metric cards
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+**Participation Leaderboard**
+- Displays top-performing students
+- Highlights engagement levels
+  
+**Filters**
+- Filter data by class
+- Filter data by date range
+  
+**Real-Time Data (Mocked)**
+- Simulated API data using mock JSON
+- Dynamic updates across components
+  
+**AI Engagement Advisor**
+- Detects low participation trends
+- Suggests actions to improve engagement
+- Rule-based recommendation system
+  
+**Responsive Design**
+- Optimized for desktop and mobile
+- Clean and modern UI
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Tech Stack
+- Frontend: React (Vite)
+- Styling: Tailwind CSS
+- Charts: Chart.js
+- State Management: Context API
+- Data Fetching: Axios
+- Mock API: JSON Server
+- Deployment: Vercel
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
+## Installation & Setup
+ 1. Clone the repository
+    ```bash
+    git clone https://github.com/MisturaDev/edulive-analytics-dashboard.git
+
+ 2. Navigate into the project
+    ```bash
+    cd edulive-analytics-dashboard
+
+ 3. Install dependencies
+    ```bash
+    npm install
+
+ 4. Run development server
+    ```bash
+    npm run dev
+
+
+---
+
+## Project Structure
+   ``bash
+   src/
+   components/      # Reusable UI components
+   pages/           # Main pages (Dashboard)
+   context/         # Global state management
+   services/        # API calls
+   data/            # Mock data
+
+
+   ---
+
+  ## Deployment
+  
+The application can be deployed using Vercel:
+- Push your code to GitHub
+- Connect repository to Vercel
+- Deploy
+
+---
+
+## Future Improvements
+
+- Real backend integration
+- Advanced AI insights using external APIs
+- Authentication system
+- Export reports
+
+---
+
+## Acknowledgements
+
+This project is part of the FlexiSAF Internship Program final project.
+
+---
+
+## Developer
+
+**Mistura Ishola**
+
