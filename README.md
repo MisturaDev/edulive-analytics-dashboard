@@ -77,7 +77,7 @@ To develop an interactive dashboard that tracks classroom performance and provid
 ---
 
 ## Project Structure
-    ``bash
+    ```bash
     src/
     components/      # Reusable UI components
     pages/           # Main pages (Dashboard)
