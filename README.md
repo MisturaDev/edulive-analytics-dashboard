@@ -11,9 +11,9 @@ To develop an interactive dashboard that tracks classroom performance and provid
 ---
 
 ## Target Audience
-Teachers
-School administrators
-Educational institutions
+- Teachers
+- School administrators
+- Educational institutions
 
 ---
 
@@ -74,19 +74,18 @@ Educational institutions
     ```bash
     npm run dev
 
-
 ---
 
 ## Project Structure
-   ``bash
-   src/
-   components/      # Reusable UI components
-   pages/           # Main pages (Dashboard)
-   context/         # Global state management
-   services/        # API calls
-   data/            # Mock data
-
-
+    ``bash
+    src/
+    components/      # Reusable UI components
+    pages/           # Main pages (Dashboard)
+    context/         # Global state management
+    services/        # API calls
+    data/            # Mock data
+    ```bash
+    
    ---
 
   ## Deployment
