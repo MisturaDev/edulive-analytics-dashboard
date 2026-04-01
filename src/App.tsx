@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import { alerts, classes, leaderboard, summary, timeseries } from './data/mockAnalytics'
+import { TrendChart } from './components/TrendChart'
 
 const formatPercent = (value: number) => `${Math.round(value * 100)}%`
 
@@ -19,12 +20,22 @@ function App() {
   const classLeaderboard = leaderboard.filter((item) => item.classId === selectedClass)
   const classAlerts = alerts.filter((item) => item.classId === selectedClass)
 
-  const attendanceBars = useMemo(
-    () => classSeries.map((item) => ({ id: item.id, value: item.attendanceRate })),
+  const chartLabels = useMemo(
+    () =>
+      classSeries.map((item) =>
+        new Date(`${item.date}T00:00:00`).toLocaleDateString('en-US', {
+          month: 'short',
+          day: '2-digit',
+        }),
+      ),
     [classSeries],
   )
-  const engagementBars = useMemo(
-    () => classSeries.map((item) => ({ id: item.id, value: item.engagementRate })),
+  const attendanceValues = useMemo(
+    () => classSeries.map((item) => item.attendanceRate),
+    [classSeries],
+  )
+  const engagementValues = useMemo(
+    () => classSeries.map((item) => item.engagementRate),
     [classSeries],
   )
 
@@ -157,51 +168,41 @@ function App() {
       </section>
 
       <section className="mt-10 grid gap-4 lg:grid-cols-[1.5fr_1fr_1fr]">
-        <div className="panel p-5">
-          <div className="flex items-center justify-between">
-            <h2 className="text-xl font-semibold text-ink-900">Attendance Trend</h2>
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ink-500">
-              Weekly
-            </p>
-          </div>
-          <div className="mt-6 flex h-32 items-end gap-2">
-            {attendanceBars.map((bar) => (
-              <div
-                key={bar.id}
-                className="flex-1 rounded-2xl bg-mint-500/70"
-                style={{ height: `${Math.round(bar.value * 100)}%` }}
-              ></div>
-            ))}
-          </div>
-          <div className="mt-4 flex items-center justify-between text-sm text-ink-500">
-            <span>Avg attendance</span>
-            <span className="font-semibold text-ink-900">
-              {formatPercent(classSummary.attendanceRate)}
-            </span>
+        <div className="space-y-4">
+          <TrendChart
+            title="Attendance Trend"
+            subtitle="Weekly"
+            labels={chartLabels}
+            values={attendanceValues}
+            lineColor="#14b8a6"
+            fillColor="rgba(20, 184, 166, 0.2)"
+          />
+          <div className="panel px-5 py-4 text-sm text-ink-500">
+            <div className="flex items-center justify-between">
+              <span>Avg attendance</span>
+              <span className="font-semibold text-ink-900">
+                {formatPercent(classSummary.attendanceRate)}
+              </span>
+            </div>
           </div>
         </div>
 
-        <div className="panel p-5">
-          <div className="flex items-center justify-between">
-            <h2 className="text-xl font-semibold text-ink-900">Engagement Trend</h2>
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ink-500">
-              Weekly
-            </p>
-          </div>
-          <div className="mt-6 flex h-32 items-end gap-2">
-            {engagementBars.map((bar) => (
-              <div
-                key={bar.id}
-                className="flex-1 rounded-2xl bg-sky-500/70"
-                style={{ height: `${Math.round(bar.value * 100)}%` }}
-              ></div>
-            ))}
-          </div>
-          <div className="mt-4 flex items-center justify-between text-sm text-ink-500">
-            <span>Avg engagement</span>
-            <span className="font-semibold text-ink-900">
-              {formatPercent(classSummary.engagementRate)}
-            </span>
+        <div className="space-y-4">
+          <TrendChart
+            title="Engagement Trend"
+            subtitle="Weekly"
+            labels={chartLabels}
+            values={engagementValues}
+            lineColor="#38bdf8"
+            fillColor="rgba(56, 189, 248, 0.2)"
+          />
+          <div className="panel px-5 py-4 text-sm text-ink-500">
+            <div className="flex items-center justify-between">
+              <span>Avg engagement</span>
+              <span className="font-semibold text-ink-900">
+                {formatPercent(classSummary.engagementRate)}
+              </span>
+            </div>
           </div>
         </div>
 
