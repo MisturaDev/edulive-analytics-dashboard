@@ -70,7 +70,7 @@ https://edulive-analytics-dashboard.vercel.app/
 |-------------------|--------|
 | ![Dashboard](screenshots/Dashboard.png) | ![Chart](screenshots/Chart.png) |
 
-| Leaderbard & AI-Advisor | JSON-Server |
+| Leaderboard & AI-Advisor | JSON-Server |
 |-------------|---------|
 | ![AI-Advisor](screenshots/Leaderboard-and-AI-Advisor.png) | ![JSON-Server](screenshots/JSON-Server.png) |
 
@@ -110,12 +110,36 @@ https://github.com/MisturaDev/edulive-analytics-dashboard/blob/main/COLOR-PALETT
 ## Project Structure
 
 ```bash
-   src/
-   components/      # Reusable UI components
-   pages/           # Main pages (Dashboard)
-   context/         # Global state management
-   services/        # API calls
-   data/            # Mock data
+   edulive-dashboard/
+├─ src/
+│  ├─ api/
+│  │  ├─ client.ts
+│  │  └─ analytics.ts
+│  ├─ components/
+│  │  └─ TrendChart.tsx
+│  ├─ context/
+│  │  └─ AnalyticsContext.tsx
+│  ├─ data/
+│  │  └─ mockAnalytics.ts
+│  ├─ App.tsx
+│  ├─ App.css
+│  ├─ index.css
+│  └─ main.tsx
+├─ public/
+├─ presentation/
+│  └─ EduLive-Analytics-Dashboard.pdf
+├─ db.json
+├─ .env.example
+├─ .gitignore
+├─ COLOR-PALETTE.md
+├─ package.json
+├─ package-lock.json
+├─ tsconfig.json
+├─ tsconfig.app.json
+├─ tsconfig.node.json
+├─ vite.config.ts
+├─ eslint.config.js
+└─ index.html
    ```
     
    ---
