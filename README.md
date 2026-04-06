@@ -62,7 +62,7 @@ To develop an interactive dashboard that tracks classroom performance and provid
 
 | Dashboard Overview | Charts |
 |-------------------|--------|
-| ![Dashboard](screenshots/Dashboard.png) | ![Charts](screenshots/charts.png) |
+| ![Dashboard](screenshots/Dashboard.png) | ![Charts](screenshots/chart.png) |
 
 | Leaderbard & AI-Advisor | JSON-Server |
 |-------------|---------|
