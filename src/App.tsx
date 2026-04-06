@@ -1,6 +1,5 @@
-import { useMemo, useState } from 'react'
-import { classes, leaderboard, summary, timeseries } from './data/mockAnalytics'
 import { TrendChart } from './components/TrendChart'
+import { useAnalytics } from './context/AnalyticsContext'
 
 const formatPercent = (value: number) => `${Math.round(value * 100)}%`
 const trendLabel = (trend: string) => {
@@ -9,78 +8,19 @@ const trendLabel = (trend: string) => {
   return '◆'
 }
 
-const aggregateSeries = (items: typeof timeseries) => {
-  const map = new Map<string, { attendance: number; engagement: number; count: number }>()
-  items.forEach((item) => {
-    const existing = map.get(item.date) ?? { attendance: 0, engagement: 0, count: 0 }
-    map.set(item.date, {
-      attendance: existing.attendance + item.attendanceRate,
-      engagement: existing.engagement + item.engagementRate,
-      count: existing.count + 1,
-    })
-  })
-  return Array.from(map.entries())
-    .sort(([a], [b]) => a.localeCompare(b))
-    .map(([date, value]) => ({
-      date,
-      attendanceRate: value.attendance / value.count,
-      engagementRate: value.engagement / value.count,
-    }))
-}
-
 function App() {
-  const [selectedClass, setSelectedClass] = useState('all')
-  const [dateRange, setDateRange] = useState('Last 30 days')
-
-  const classInfo =
-    selectedClass === 'all'
-      ? { id: 'all', name: 'All Classes', subject: 'All Subjects', teacher: 'Admin View' }
-      : classes.find((item) => item.id === selectedClass) ?? classes[0]
-
-  const classSummary =
-    selectedClass === 'all'
-      ? summary.reduce(
-          (acc, item) => ({
-            id: 0,
-            classId: 'all',
-            date: item.date,
-            attendanceRate: acc.attendanceRate + item.attendanceRate / summary.length,
-            engagementRate: acc.engagementRate + item.engagementRate / summary.length,
-            participationRate: acc.participationRate + item.participationRate / summary.length,
-            tardyRate: acc.tardyRate + item.tardyRate / summary.length,
-            absentRate: acc.absentRate + item.absentRate / summary.length,
-          }),
-          {
-            id: 0,
-            classId: 'all',
-            date: summary[0]?.date ?? '',
-            attendanceRate: 0,
-            engagementRate: 0,
-            participationRate: 0,
-            tardyRate: 0,
-            absentRate: 0,
-          },
-        )
-      : summary.find((item) => item.classId === selectedClass) ?? summary[0]
-
-  const classSeries =
-    selectedClass === 'all'
-      ? aggregateSeries(timeseries)
-      : timeseries.filter((item) => item.classId === selectedClass)
-
-  const classLeaderboard =
-    selectedClass === 'all' ? leaderboard : leaderboard.filter((item) => item.classId === selectedClass)
-
-  const chartLabels = useMemo(
-    () =>
-      classSeries.map((item) =>
-        new Date(`${item.date}T00:00:00`).toLocaleDateString('en-US', {
-          month: 'short',
-          day: '2-digit',
-        }),
-      ),
-    [classSeries],
-  )
+  const {
+    classOptions,
+    selectedClass,
+    dateRange,
+    setSelectedClass,
+    setDateRange,
+    classInfo,
+    classSummary,
+    classSeries,
+    classLeaderboard,
+    chartLabels,
+  } = useAnalytics()
 
   return (
     <div className="px-4 py-10 sm:px-8">
@@ -108,7 +48,7 @@ function App() {
                   onChange={(event) => setSelectedClass(event.target.value)}
                 >
                   <option value="all">All Classes</option>
-                  {classes.map((item) => (
+                  {classOptions.map((item) => (
                     <option key={item.id} value={item.id}>
                       {item.name} · {item.subject}
                     </option>
