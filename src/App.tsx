@@ -26,21 +26,21 @@ function App() {
 
   return (
     <div className="px-4 py-10 sm:px-8">
-      <div className="mx-auto max-w-6xl">
+      <div className="mx-auto max-w-6xl dashboard-frame">
         <header className="mb-8 flex flex-wrap items-center justify-between gap-6">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400">
               EduLive Analytics
             </p>
-            <h1 className="mt-2 text-4xl font-semibold text-ink-900">
+            <h1 className="mt-2 text-4xl font-bold text-ink-900">
               Class Performance Dashboard
             </h1>
             <p className="mt-2 text-sm text-slate-500">
-              Track attendance, engagement, and participation trends in real time.
+              Track attendance, engagement and participation trends in real time.
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-3">
-            <div className="rounded-2xl border border-slate-200 bg-white px-4 py-2">
+            <div className="filter-card">
               <label className="text-[10px] font-semibold uppercase tracking-widest text-slate-400">
                 Class
               </label>
@@ -58,7 +58,7 @@ function App() {
                   ))}
               </select>
             </div>
-            <div className="rounded-2xl border border-slate-200 bg-white px-4 py-2">
+            <div className="filter-card">
               <label className="text-[10px] font-semibold uppercase tracking-widest text-slate-400">
                 Date Range
               </label>
@@ -78,35 +78,31 @@ function App() {
         </header>
 
         <section className="mx-auto w-full max-w-[1240px] grid gap-[64px] [grid-template-columns:repeat(auto-fit,minmax(190px,1fr))]">
-          <div className="panel metric-card-sm border-l-4 border-l-blue-500 p-5 text-center">
-            <p className="text-[11px] uppercase tracking-[0.2em] text-slate-400">Attendance</p>
-            <p className="mt-3 text-3xl font-semibold text-blue-600">
-              {formatPercent(classSummary.attendanceRate)}
-            </p>
-            <p className="mt-1 text-xs text-slate-500">
+          <div className="metric-card metric-card--blue">
+            <p className="metric-label">Attendance</p>
+            <p className="metric-value">{formatPercent(classSummary.attendanceRate)}</p>
+            <p className="mt-2 text-sm font-medium text-slate-500">
               Absences {formatPercent(classSummary.absentRate)}
             </p>
           </div>
-          <div className="panel metric-card-sm border-l-4 border-l-emerald-500 p-5 text-center">
-            <p className="text-[11px] uppercase tracking-[0.2em] text-slate-400">Engagement</p>
-            <p className="mt-3 text-3xl font-semibold text-emerald-600">
-              {formatPercent(classSummary.engagementRate)}
-            </p>
-            <p className="mt-1 text-xs text-slate-500">
+          <div className="metric-card metric-card--green">
+            <p className="metric-label">Engagement</p>
+            <p className="metric-value">{formatPercent(classSummary.engagementRate)}</p>
+            <p className="mt-2 text-sm font-medium text-slate-500">
               Tardy {formatPercent(classSummary.tardyRate)}
             </p>
           </div>
-          <div className="panel metric-card-sm border-l-4 border-l-orange-500 p-5 text-center">
-            <p className="text-[11px] uppercase tracking-[0.2em] text-slate-400">Participation</p>
-            <p className="mt-3 text-3xl font-semibold text-orange-500">
-              {formatPercent(classSummary.participationRate)}
-            </p>
-            <p className="mt-1 text-xs text-slate-500">Live classroom input</p>
+          <div className="metric-card metric-card--orange">
+            <p className="metric-label">Participation</p>
+            <p className="metric-value">{formatPercent(classSummary.participationRate)}</p>
+            <p className="mt-2 text-sm font-medium text-slate-500">Live classroom input</p>
           </div>
-          <div className="panel metric-card-sm border-l-4 border-l-slate-400 p-5 text-center">
-            <p className="text-[11px] uppercase tracking-[0.2em] text-slate-400">Class</p>
-            <p className="mt-3 text-xl font-semibold text-ink-900">{classInfo.name}</p>
-            <p className="mt-1 text-xs text-slate-500">{classInfo.teacher}</p>
+          <div className="metric-card metric-card--neutral">
+            <p className="metric-label">Class</p>
+            <p className="metric-value" style={{ color: 'var(--primary)', fontSize: '1.4rem' }}>
+              {classInfo.name}
+            </p>
+            <p className="mt-2 text-sm font-medium text-slate-500">{classInfo.teacher}</p>
           </div>
         </section>
 
@@ -139,14 +135,14 @@ function App() {
               <h2 className="section-title">Participation Leaderboard</h2>
               <span className="text-[11px] uppercase tracking-[0.2em] text-slate-400">Top 3</span>
             </div>
-            <div className="mt-5 space-y-4">
-              {classLeaderboard.map((entry, idx) => (
+            <div className="mt-4 space-y-3">
+              {classLeaderboard.slice(0, 3).map((entry, idx) => (
                 <div
                   key={entry.id}
-                  className="flex items-center justify-between rounded-2xl border border-slate-100 bg-white px-4 py-3"
+                  className="flex items-center justify-between rounded-2xl border border-slate-100 bg-white px-4 py-3 shadow-soft"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="flex h-9 w-9 items-center justify-center rounded-2xl bg-slate-100 text-xs font-semibold text-ink-900">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-slate-50 text-xs font-semibold text-ink-900">
                       {entry.student
                         .split(' ')
                         .map((part) => part[0])
@@ -163,9 +159,17 @@ function App() {
                     <p className="text-lg font-semibold text-ink-900">
                       {entry.participationScore}
                     </p>
-                    <p className="text-xs uppercase tracking-widest text-slate-400">
+                    <span
+                      className={`mt-1 inline-flex items-center rounded-full px-2 py-1 text-[10px] font-semibold uppercase ${
+                        entry.trend === 'up'
+                          ? 'bg-emerald-50 text-emerald-600'
+                          : entry.trend === 'down'
+                          ? 'bg-orange-50 text-orange-600'
+                          : 'bg-slate-100 text-slate-500'
+                      }`}
+                    >
                       {trendLabel(entry.trend)} {entry.trend}
-                    </p>
+                    </span>
                   </div>
                 </div>
               ))}
@@ -205,4 +209,3 @@ function App() {
 }
 
 export default App
-
