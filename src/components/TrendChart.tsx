@@ -68,8 +68,8 @@ export function TrendChart({
         data: values,
         borderColor: lineColor,
         backgroundColor: fillColor,
-        tension: 0.35,
-        pointRadius: 3,
+        tension: 0.2,
+        pointRadius: 2,
         pointBackgroundColor: lineColor,
         fill: true,
       },
@@ -89,7 +89,7 @@ export function TrendChart({
   return (
     <div className="panel p-5">
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-semibold text-ink-900">{title}</h2>
+        <h2 className="text-xl font-medium text-ink-900">{title}</h2>
         {subtitle && (
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ink-500">
             {subtitle}
