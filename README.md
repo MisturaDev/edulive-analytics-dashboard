@@ -106,7 +106,6 @@ https://github.com/MisturaDev/edulive-analytics-dashboard/blob/main/COLOR-PALETT
     npm run server:local
     npm run dev
     
-
 ---
 
 ## Project Structure
