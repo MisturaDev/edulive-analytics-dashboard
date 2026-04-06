@@ -78,7 +78,7 @@ https://edulive-analytics-dashboard.vercel.app/
 
 ## Presentation Slides
 
-https://github.com/MisturaDev/edulive-analytics-dashboard/blob/main/presentation/edulive-analytics-dashboard.pdf
+https://github.com/MisturaDev/edulive-analytics-dashboard/blob/main/presentation/EduLive-Analytics-Dashboard.pdf
 
 ---
 
