@@ -7,12 +7,27 @@
 @layer base {
   :root {
     color-scheme: light;
+    --bg: #eef1f6;
+    --surface: #ffffff;
+    --surface-muted: #f7f8fb;
+    --border: #e6eaf1;
+    --text: #0f172a;
+    --text-muted: #6b7280;
+    --text-faint: #94a3b8;
+    --primary: #6d28d9;
+    --primary-soft: #ede9fe;
+    --blue: #2563eb;
+    --green: #16a34a;
+    --orange: #f97316;
   }
 
   body {
     font-family: 'Manrope', system-ui, sans-serif;
-    color: #0f172a;
-    background: #e8edf2;
+    color: var(--text);
+    background:
+      radial-gradient(circle at 12% 10%, rgba(109, 40, 217, 0.08), transparent 35%),
+      radial-gradient(circle at 88% 12%, rgba(37, 99, 235, 0.08), transparent 35%),
+      var(--bg);
     min-height: 100vh;
   }
 
@@ -27,8 +42,8 @@
 @layer components {
   .panel {
     border-radius: 1.5rem;
-    border: 1px solid #e2e8f0;
-    background: #fff;
+    border: 1px solid var(--border);
+    background: var(--surface);
     box-shadow: 0 20px 50px -30px rgba(15, 23, 42, 0.35);
   }
 

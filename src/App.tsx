@@ -80,7 +80,7 @@ function App() {
         <section className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           <div className="panel border-l-4 border-l-blue-500 p-5">
             <p className="text-[11px] uppercase tracking-[0.2em] text-slate-400">Attendance</p>
-            <p className="mt-3 text-3xl font-semibold text-ink-900">
+            <p className="mt-3 text-3xl font-semibold text-blue-600">
               {formatPercent(classSummary.attendanceRate)}
             </p>
             <p className="mt-1 text-xs text-slate-500">
@@ -89,7 +89,7 @@ function App() {
           </div>
           <div className="panel border-l-4 border-l-emerald-500 p-5">
             <p className="text-[11px] uppercase tracking-[0.2em] text-slate-400">Engagement</p>
-            <p className="mt-3 text-3xl font-semibold text-ink-900">
+            <p className="mt-3 text-3xl font-semibold text-emerald-600">
               {formatPercent(classSummary.engagementRate)}
             </p>
             <p className="mt-1 text-xs text-slate-500">
@@ -98,7 +98,7 @@ function App() {
           </div>
           <div className="panel border-l-4 border-l-orange-500 p-5">
             <p className="text-[11px] uppercase tracking-[0.2em] text-slate-400">Participation</p>
-            <p className="mt-3 text-3xl font-semibold text-ink-900">
+            <p className="mt-3 text-3xl font-semibold text-orange-500">
               {formatPercent(classSummary.participationRate)}
             </p>
             <p className="mt-1 text-xs text-slate-500">Live classroom input</p>
@@ -117,8 +117,8 @@ function App() {
               subtitle="Weekly"
               labels={chartLabels}
               values={classSeries.map((item) => item.attendanceRate)}
-              lineColor="#3b82f6"
-              fillColor="rgba(59, 130, 246, 0.2)"
+              lineColor="var(--blue)"
+              fillColor="rgba(37, 99, 235, 0.2)"
             />
           </div>
           <div className="panel p-5">
@@ -127,8 +127,8 @@ function App() {
               subtitle="Weekly"
               labels={chartLabels}
               values={classSeries.map((item) => item.engagementRate)}
-              lineColor="#22c55e"
-              fillColor="rgba(34, 197, 94, 0.2)"
+              lineColor="var(--green)"
+              fillColor="rgba(22, 163, 74, 0.2)"
             />
           </div>
         </section>
