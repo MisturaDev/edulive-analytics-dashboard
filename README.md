@@ -103,7 +103,9 @@ https://github.com/MisturaDev/edulive-analytics-dashboard/blob/main/COLOR-PALETT
 
  4. Run development server
     ```bash
+    npm run server:local
     npm run dev
+    
 
 ---
 
