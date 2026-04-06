@@ -57,6 +57,19 @@ To develop an interactive dashboard that tracks classroom performance and provid
 - Deployment: Vercel
 
 ---
+
+## Screenshots
+
+| Dashboard Overview | Charts |
+|-------------------|--------|
+| ![Dashboard](screenshots/Dashboard.png) | ![Charts](screenshots/charts.png) |
+
+| Leaderbard & AI-Advisor | JSON-Server |
+|-------------|---------|
+| ![AI-Advisor](screenshots/Leaderboard-and-AI-Advisor.png) | ![JSON-Server](screenshots/JSON-Server.png) |
+
+---
+
 ## Installation & Setup
  1. Clone the repository
     ```bash
