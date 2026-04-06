@@ -74,6 +74,11 @@ To develop an interactive dashboard that tracks classroom performance and provid
 
 https://github.com/MisturaDev/edulive-analytics-dashboard/blob/main/presentation/edulive-analytics-dashboard.pdf
 
+---
+
+## Colour Palette
+
+https://github.com/MisturaDev/edulive-analytics-dashboard/blob/main/COLOR-PALETTE.md
 
 ---
 
