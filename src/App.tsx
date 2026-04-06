@@ -77,8 +77,8 @@ function App() {
           </div>
         </header>
 
-        <section className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          <div className="panel border-l-4 border-l-blue-500 p-5">
+        <section className="mx-auto w-full max-w-[1240px] grid gap-[64px] [grid-template-columns:repeat(auto-fit,minmax(190px,1fr))]">
+          <div className="panel metric-card-sm border-l-4 border-l-blue-500 p-5 text-center">
             <p className="text-[11px] uppercase tracking-[0.2em] text-slate-400">Attendance</p>
             <p className="mt-3 text-3xl font-semibold text-blue-600">
               {formatPercent(classSummary.attendanceRate)}
@@ -87,7 +87,7 @@ function App() {
               Absences {formatPercent(classSummary.absentRate)}
             </p>
           </div>
-          <div className="panel border-l-4 border-l-emerald-500 p-5">
+          <div className="panel metric-card-sm border-l-4 border-l-emerald-500 p-5 text-center">
             <p className="text-[11px] uppercase tracking-[0.2em] text-slate-400">Engagement</p>
             <p className="mt-3 text-3xl font-semibold text-emerald-600">
               {formatPercent(classSummary.engagementRate)}
@@ -96,14 +96,14 @@ function App() {
               Tardy {formatPercent(classSummary.tardyRate)}
             </p>
           </div>
-          <div className="panel border-l-4 border-l-orange-500 p-5">
+          <div className="panel metric-card-sm border-l-4 border-l-orange-500 p-5 text-center">
             <p className="text-[11px] uppercase tracking-[0.2em] text-slate-400">Participation</p>
             <p className="mt-3 text-3xl font-semibold text-orange-500">
               {formatPercent(classSummary.participationRate)}
             </p>
             <p className="mt-1 text-xs text-slate-500">Live classroom input</p>
           </div>
-          <div className="panel border-l-4 border-l-slate-400 p-5">
+          <div className="panel metric-card-sm border-l-4 border-l-slate-400 p-5 text-center">
             <p className="text-[11px] uppercase tracking-[0.2em] text-slate-400">Class</p>
             <p className="mt-3 text-xl font-semibold text-ink-900">{classInfo.name}</p>
             <p className="mt-1 text-xs text-slate-500">{classInfo.teacher}</p>

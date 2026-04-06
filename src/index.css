@@ -47,6 +47,10 @@
     box-shadow: 0 20px 50px -30px rgba(15, 23, 42, 0.35);
   }
 
+  .metric-card-sm {
+    width: 100%;
+  }
+
   .section-title {
     font-family: 'Space Grotesk', system-ui, sans-serif;
     font-size: 1.05rem;
