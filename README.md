@@ -70,6 +70,13 @@ To develop an interactive dashboard that tracks classroom performance and provid
 
 ---
 
+## Presentation Slides
+
+https://github.com/MisturaDev/edulive-analytics-dashboard/blob/main/presentation/edulive-analytics-dashboard.pdf
+
+
+---
+
 ## Installation & Setup
  1. Clone the repository
     ```bash
