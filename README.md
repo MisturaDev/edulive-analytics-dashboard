@@ -64,10 +64,6 @@ https://edulive-analytics-dashboard.vercel.app/
 
 ---
 
-
-
----
-
 ## Screenshots
 
 | Dashboard Overview | Charts |
@@ -126,25 +122,24 @@ https://github.com/MisturaDev/edulive-analytics-dashboard/blob/main/COLOR-PALETT
 
   ## Deployment
   
-The application can be deployed using Vercel:
-- Push your code to GitHub
-- Connect repository to Vercel
-- Deploy
+- Frontend deployed on Vercel
+- Mock API deployed on Render
+- https://edulive-analytics-dashboard.onrender.com/
 
 ---
 
 ## Future Improvements
 
-- Real backend integration
+- Integration with a real backend API
 - Advanced AI insights using external APIs
-- Authentication system
+- Authentication and user roles
 - Export reports
 
 ---
 
 ## Acknowledgements
 
-This project is part of the FlexiSAF Internship Program final project.
+This project is part of the FlexiSAF Internship Program Final Project.
 
 ---
 
