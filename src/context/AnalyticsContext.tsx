@@ -1,5 +1,6 @@
 import { createContext, useContext, useMemo, useState, type ReactNode } from 'react'
-import { classes, leaderboard, summary, timeseries } from '../data/mockAnalytics'
+import { useEffect } from 'react'
+import { fetchClasses, fetchLeaderboard, fetchSummary, fetchTimeseries } from '../api/analytics'
 
 type ClassInfo = {
   id: string
@@ -35,14 +36,15 @@ type AnalyticsContextValue = {
   classInfo: ClassInfo
   classSummary: SummaryItem
   classSeries: SeriesItem[]
-  classLeaderboard: typeof leaderboard
+  classLeaderboard: LeaderboardEntry[]
   chartLabels: string[]
   advisorInsights: AdvisorInsight[]
+  isLoading: boolean
 }
 
 const AnalyticsContext = createContext<AnalyticsContextValue | null>(null)
 
-const aggregateSummary = (items: typeof summary) =>
+const aggregateSummary = (items: SummaryItem[]) =>
   items.reduce(
     (acc, item) => ({
       id: 0,
@@ -66,7 +68,7 @@ const aggregateSummary = (items: typeof summary) =>
     },
   )
 
-const aggregateSeries = (items: typeof timeseries) => {
+const aggregateSeries = (items: Array<{ date: string; attendanceRate: number; engagementRate: number; participationRate: number }>) => {
   const map = new Map<string, { attendance: number; engagement: number; count: number }>()
   items.forEach((item) => {
     const existing = map.get(item.date) ?? { attendance: 0, engagement: 0, count: 0 }
@@ -143,16 +145,31 @@ const buildAdvisorInsights = (items: SummaryItem[], series: SeriesItem[]) => {
   return insights.slice(0, 3)
 }
 
+type LeaderboardEntry = {
+  id: number
+  classId: string
+  student: string
+  participationScore: number
+  trend: 'up' | 'down' | 'flat'
+}
+
 export function AnalyticsProvider({ children }: { children: ReactNode }) {
   const [selectedClass, setSelectedClass] = useState('all')
   const [dateRange, setDateRange] = useState('Last 30 days')
+  const [classOptions, setClassOptions] = useState<ClassInfo[]>([])
+  const [summary, setSummary] = useState<SummaryItem[]>([])
+  const [timeseries, setTimeseries] = useState<
+    Array<{ classId: string } & SeriesItem & { participationRate: number }>
+  >([])
+  const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([])
+  const [isLoading, setIsLoading] = useState(true)
 
   const classInfo = useMemo(
     () =>
       selectedClass === 'all'
         ? { id: 'all', name: 'All Classes', subject: 'All Subjects', teacher: 'Admin View' }
-        : classes.find((item) => item.id === selectedClass) ?? classes[0],
-    [selectedClass],
+        : classOptions.find((item) => item.id === selectedClass) ?? classOptions[0],
+    [selectedClass, classOptions],
   )
 
   const classSummary = useMemo(
@@ -160,7 +177,7 @@ export function AnalyticsProvider({ children }: { children: ReactNode }) {
       selectedClass === 'all'
         ? aggregateSummary(summary)
         : summary.find((item) => item.classId === selectedClass) ?? summary[0],
-    [selectedClass],
+    [selectedClass, summary],
   )
 
   const classSeries = useMemo(
@@ -168,7 +185,7 @@ export function AnalyticsProvider({ children }: { children: ReactNode }) {
       selectedClass === 'all'
         ? aggregateSeries(timeseries)
         : timeseries.filter((item) => item.classId === selectedClass),
-    [selectedClass],
+    [selectedClass, timeseries],
   )
 
   const classLeaderboard = useMemo(
@@ -176,7 +193,7 @@ export function AnalyticsProvider({ children }: { children: ReactNode }) {
       selectedClass === 'all'
         ? leaderboard
         : leaderboard.filter((item) => item.classId === selectedClass),
-    [selectedClass],
+    [selectedClass, leaderboard],
   )
 
   const chartLabels = useMemo(
@@ -199,8 +216,37 @@ export function AnalyticsProvider({ children }: { children: ReactNode }) {
     [classSeries, classSummary, selectedClass],
   )
 
+  useEffect(() => {
+    let isMounted = true
+    const loadData = async () => {
+      try {
+        setIsLoading(true)
+        const [classesRes, summaryRes, seriesRes, leaderboardRes] = await Promise.all([
+          fetchClasses(),
+          fetchSummary(),
+          fetchTimeseries(),
+          fetchLeaderboard(),
+        ])
+        if (!isMounted) return
+        setClassOptions(classesRes.data)
+        setSummary(summaryRes.data)
+        setTimeseries(seriesRes.data)
+        setLeaderboard(leaderboardRes.data)
+      } finally {
+        if (isMounted) setIsLoading(false)
+      }
+    }
+
+    loadData()
+    const interval = setInterval(loadData, 10000)
+    return () => {
+      isMounted = false
+      clearInterval(interval)
+    }
+  }, [])
+
   const value: AnalyticsContextValue = {
-    classOptions: classes,
+    classOptions,
     selectedClass,
     dateRange,
     setSelectedClass,
@@ -211,6 +257,7 @@ export function AnalyticsProvider({ children }: { children: ReactNode }) {
     classLeaderboard,
     chartLabels,
     advisorInsights,
+    isLoading,
   }
 
   return <AnalyticsContext.Provider value={value}>{children}</AnalyticsContext.Provider>

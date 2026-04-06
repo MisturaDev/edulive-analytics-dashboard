@@ -21,6 +21,7 @@ function App() {
     classLeaderboard,
     chartLabels,
     advisorInsights,
+    isLoading,
   } = useAnalytics()
 
   return (
@@ -47,6 +48,7 @@ function App() {
                   className="mt-1 block w-full bg-transparent text-sm font-semibold text-ink-900 outline-none"
                   value={selectedClass}
                   onChange={(event) => setSelectedClass(event.target.value)}
+                  disabled={isLoading}
                 >
                   <option value="all">All Classes</option>
                   {classOptions.map((item) => (
@@ -64,6 +66,7 @@ function App() {
                 className="mt-1 block w-full bg-transparent text-sm font-semibold text-ink-900 outline-none"
                 value={dateRange}
                 onChange={(event) => setDateRange(event.target.value)}
+                disabled={isLoading}
               >
                 <option>Last 7 days</option>
                 <option>Last 30 days</option>
