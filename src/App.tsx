@@ -1,11 +1,11 @@
-import { TrendChart } from './components/TrendChart'
+﻿import { TrendChart } from './components/TrendChart'
 import { useAnalytics } from './context/AnalyticsContext'
 
 const formatPercent = (value: number) => `${Math.round(value * 100)}%`
 const trendLabel = (trend: string) => {
-  if (trend === 'up') return '▲'
-  if (trend === 'down') return '▼'
-  return '◆'
+  if (trend === 'up') return '^'
+  if (trend === 'down') return 'v'
+  return '-'
 }
 
 function App() {
@@ -20,6 +20,7 @@ function App() {
     classSeries,
     classLeaderboard,
     chartLabels,
+    advisorInsights,
   } = useAnalytics()
 
   return (
@@ -50,7 +51,7 @@ function App() {
                   <option value="all">All Classes</option>
                   {classOptions.map((item) => (
                     <option key={item.id} value={item.id}>
-                      {item.name} · {item.subject}
+                      {item.name} - {item.subject}
                     </option>
                   ))}
               </select>
@@ -79,14 +80,18 @@ function App() {
             <p className="mt-3 text-3xl font-semibold text-ink-900">
               {formatPercent(classSummary.attendanceRate)}
             </p>
-            <p className="mt-1 text-xs text-slate-500">Absences {formatPercent(classSummary.absentRate)}</p>
+            <p className="mt-1 text-xs text-slate-500">
+              Absences {formatPercent(classSummary.absentRate)}
+            </p>
           </div>
           <div className="panel border-l-4 border-l-emerald-500 p-5">
             <p className="text-[11px] uppercase tracking-[0.2em] text-slate-400">Engagement</p>
             <p className="mt-3 text-3xl font-semibold text-ink-900">
               {formatPercent(classSummary.engagementRate)}
             </p>
-            <p className="mt-1 text-xs text-slate-500">Tardy {formatPercent(classSummary.tardyRate)}</p>
+            <p className="mt-1 text-xs text-slate-500">
+              Tardy {formatPercent(classSummary.tardyRate)}
+            </p>
           </div>
           <div className="panel border-l-4 border-l-orange-500 p-5">
             <p className="text-[11px] uppercase tracking-[0.2em] text-slate-400">Participation</p>
@@ -165,12 +170,29 @@ function App() {
           </div>
 
           <div className="panel p-5">
-            <h2 className="section-title">Engagement Advisor</h2>
-            <p className="section-sub mt-2">
-              AI insights will appear here once enabled.
-            </p>
-            <div className="mt-4 rounded-2xl border border-dashed border-slate-200 bg-slate-50 px-4 py-4 text-sm text-slate-500">
-              Rule-based and API-driven recommendations will surface here.
+            <div className="flex items-center justify-between">
+              <h2 className="section-title">Engagement Advisor</h2>
+              <span className="rounded-full border border-violet-100 bg-violet-50 px-3 py-1 text-[11px] font-semibold text-violet-600">
+                AI
+              </span>
+            </div>
+            <p className="section-sub mt-2">AI guidance based on participation trends.</p>
+            <div className="mt-4 space-y-3">
+              {advisorInsights.map((insight) => (
+                <div
+                  key={insight.id}
+                  className={`rounded-2xl border px-4 py-3 text-sm ${
+                    insight.tone === 'warn'
+                      ? 'border-orange-100 bg-orange-50 text-orange-700'
+                      : insight.tone === 'positive'
+                      ? 'border-emerald-100 bg-emerald-50 text-emerald-700'
+                      : 'border-slate-200 bg-slate-50 text-slate-600'
+                  }`}
+                >
+                  <p className="font-semibold">{insight.title}</p>
+                  <p className="mt-1 text-xs">{insight.detail}</p>
+                </div>
+              ))}
             </div>
           </div>
         </section>
@@ -180,3 +202,4 @@ function App() {
 }
 
 export default App
+

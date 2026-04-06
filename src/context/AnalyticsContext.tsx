@@ -23,6 +23,7 @@ type SeriesItem = {
   date: string
   attendanceRate: number
   engagementRate: number
+  participationRate?: number
 }
 
 type AnalyticsContextValue = {
@@ -36,6 +37,7 @@ type AnalyticsContextValue = {
   classSeries: SeriesItem[]
   classLeaderboard: typeof leaderboard
   chartLabels: string[]
+  advisorInsights: AdvisorInsight[]
 }
 
 const AnalyticsContext = createContext<AnalyticsContextValue | null>(null)
@@ -80,7 +82,65 @@ const aggregateSeries = (items: typeof timeseries) => {
       date,
       attendanceRate: value.attendance / value.count,
       engagementRate: value.engagement / value.count,
+      participationRate: items
+        .filter((item) => item.date === date)
+        .reduce((acc, item) => acc + item.participationRate, 0) /
+        items.filter((item) => item.date === date).length,
     }))
+}
+
+type AdvisorInsight = {
+  id: string
+  title: string
+  detail: string
+  tone: 'warn' | 'info' | 'positive'
+}
+
+const buildAdvisorInsights = (items: SummaryItem[], series: SeriesItem[]) => {
+  const latest = items[0]
+  const insights: AdvisorInsight[] = []
+
+  if (latest.participationRate < 0.5) {
+    insights.push({
+      id: 'low-participation',
+      title: 'Participation below 50%',
+      detail: 'Recommend more short quizzes and quick check-ins this week.',
+      tone: 'warn',
+    })
+  }
+
+  if (series.length >= 3) {
+    const last = series[series.length - 1].participationRate ?? latest.participationRate
+    const prev = series[series.length - 2].participationRate ?? latest.participationRate
+    if (last < prev) {
+      insights.push({
+        id: 'downward-trend',
+        title: 'Participation trending down',
+        detail: 'Add a 5-minute recap or breakout prompt to re-engage students.',
+        tone: 'info',
+      })
+    }
+  }
+
+  if (latest.attendanceRate >= 0.9) {
+    insights.push({
+      id: 'attendance-strong',
+      title: 'Attendance strong',
+      detail: 'Keep using reminders and pre-class nudges to maintain momentum.',
+      tone: 'positive',
+    })
+  }
+
+  if (insights.length === 0) {
+    insights.push({
+      id: 'steady',
+      title: 'Engagement steady',
+      detail: 'No urgent actions required. Continue current engagement strategy.',
+      tone: 'positive',
+    })
+  }
+
+  return insights.slice(0, 3)
 }
 
 export function AnalyticsProvider({ children }: { children: ReactNode }) {
@@ -130,6 +190,15 @@ export function AnalyticsProvider({ children }: { children: ReactNode }) {
     [classSeries],
   )
 
+  const advisorInsights = useMemo(
+    () =>
+      buildAdvisorInsights(
+        selectedClass === 'all' ? [aggregateSummary(summary)] : [classSummary],
+        classSeries,
+      ),
+    [classSeries, classSummary, selectedClass],
+  )
+
   const value: AnalyticsContextValue = {
     classOptions: classes,
     selectedClass,
@@ -141,6 +210,7 @@ export function AnalyticsProvider({ children }: { children: ReactNode }) {
     classSeries,
     classLeaderboard,
     chartLabels,
+    advisorInsights,
   }
 
   return <AnalyticsContext.Provider value={value}>{children}</AnalyticsContext.Provider>
