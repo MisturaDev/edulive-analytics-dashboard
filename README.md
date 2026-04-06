@@ -146,9 +146,8 @@ https://github.com/MisturaDev/edulive-analytics-dashboard/blob/main/COLOR-PALETT
 
   ## Deployment
   
-- Frontend deployed on Vercel
-- Mock API deployed on Render
-- https://edulive-analytics-dashboard.onrender.com/
+- Frontend deployed on Vercel [Live App](https://edulive-analytics-dashboard.vercel.app/)
+- Mock API deployed on Render [Live](https://edulive-analytics-dashboard.onrender.com/)
 
 ---
 
