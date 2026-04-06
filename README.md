@@ -10,6 +10,12 @@ To develop an interactive dashboard that tracks classroom performance and provid
 
 ---
 
+## Live Project
+
+https://edulive-analytics-dashboard.vercel.app/
+
+---
+
 ## Target Audience
 - Teachers
 - School administrators
@@ -55,6 +61,10 @@ To develop an interactive dashboard that tracks classroom performance and provid
 - Data Fetching: Axios
 - Mock API: JSON Server
 - Deployment: Vercel
+
+---
+
+
 
 ---
 
