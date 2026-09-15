@@ -10,6 +10,12 @@ To develop an interactive dashboard that tracks classroom performance and provid
 
 ---
 
+## Live Project
+
+https://edulive-analytics-dashboard.vercel.app/
+
+---
+
 ## Target Audience
 - Teachers
 - School administrators
@@ -57,6 +63,31 @@ To develop an interactive dashboard that tracks classroom performance and provid
 - Deployment: Vercel
 
 ---
+
+## Screenshots
+
+| Dashboard Overview | Charts |
+|-------------------|--------|
+| ![Dashboard](screenshots/Dashboard.png) | ![Chart](screenshots/Chart.png) |
+
+| Leaderboard & AI-Advisor | JSON-Server |
+|-------------|---------|
+| ![AI-Advisor](screenshots/Leaderboard-and-AI-Advisor.png) | ![JSON-Server](screenshots/JSON-Server.png) |
+
+---
+
+## Presentation Slides
+
+https://github.com/MisturaDev/edulive-analytics-dashboard/blob/main/presentation/EduLive-Analytics-Dashboard.pdf
+
+---
+
+## Colour Palette
+
+https://github.com/MisturaDev/edulive-analytics-dashboard/blob/main/COLOR-PALETTE.md
+
+---
+
 ## Installation & Setup
  1. Clone the repository
     ```bash
@@ -72,44 +103,67 @@ To develop an interactive dashboard that tracks classroom performance and provid
 
  4. Run development server
     ```bash
+    npm run server:local
     npm run dev
-
+    
 ---
 
 ## Project Structure
 
 ```bash
-   src/
-   components/      # Reusable UI components
-   pages/           # Main pages (Dashboard)
-   context/         # Global state management
-   services/        # API calls
-   data/            # Mock data
+   edulive-dashboard/
+├─ src/
+│  ├─ api/
+│  │  ├─ client.ts
+│  │  └─ analytics.ts
+│  ├─ components/
+│  │  └─ TrendChart.tsx
+│  ├─ context/
+│  │  └─ AnalyticsContext.tsx
+│  ├─ data/
+│  │  └─ mockAnalytics.ts
+│  ├─ App.tsx
+│  ├─ App.css
+│  ├─ index.css
+│  └─ main.tsx
+├─ public/
+├─ presentation/
+│  └─ EduLive-Analytics-Dashboard.pdf
+├─ db.json
+├─ .env.example
+├─ .gitignore
+├─ COLOR-PALETTE.md
+├─ package.json
+├─ package-lock.json
+├─ tsconfig.json
+├─ tsconfig.app.json
+├─ tsconfig.node.json
+├─ vite.config.ts
+├─ eslint.config.js
+└─ index.html
    ```
     
    ---
 
   ## Deployment
   
-The application can be deployed using Vercel:
-- Push your code to GitHub
-- Connect repository to Vercel
-- Deploy
+- Frontend deployed on Vercel [Live App](https://edulive-analytics-dashboard.vercel.app/)
+- Mock API deployed on Render [Live](https://edulive-analytics-dashboard.onrender.com/)
 
 ---
 
 ## Future Improvements
 
-- Real backend integration
+- Integration with a real backend API
 - Advanced AI insights using external APIs
-- Authentication system
+- Authentication and user roles
 - Export reports
 
 ---
 
 ## Acknowledgements
 
-This project is part of the FlexiSAF Internship Program final project.
+This project is part of the FlexiSAF Internship Program Final Project.
 
 ---
 
